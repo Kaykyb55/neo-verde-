@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Diagnóstico Admin</title>
+</head>
+<body>
+    <h1>Teste de API - Admin NeoVerde</h1>
+    <button onclick="testarAPI()">Testar API /api/projects</button>
+    <pre id="resultado"></pre>
+
+    <script>
+        async function testarAPI() {
+            const resultado = document.getElementById('resultado');
+            resultado.textContent = 'Testando...';
+            
+            try {
+                const response = await fetch('/api/projects');
+                const data = await response.json();
+                
+                resultado.textContent = JSON.stringify(data, null, 2);
+                
+                console.log('Status:', response.status);
+                console.log('Dados:', data);
+                console.log('Total de projetos:', data.length);
+                
+                if (data.length > 0) {
+                    alert(`✅ API FUNCIONANDO! ${data.length} projetos encontrados`);
+                } else {
+                    alert('⚠️ API funciona mas não há projetos no banco');
+                }
+            } catch (error) {
+                resultado.textContent = 'ERRO: ' + error.message;
+                console.error('Erro:', error);
+                alert('❌ ERRO: ' + error.message);
+            }
+        }
+        
+        // Testar automaticamente ao carregar
+        window.onload = () => {
+            setTimeout(testarAPI, 1000);
+        };
+    </script>
+</body>
+</html>

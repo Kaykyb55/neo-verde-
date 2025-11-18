@@ -1,0 +1,90 @@
+═══════════════════════════════════════════════════════
+  🚨 COMO RESOLVER O ERRO 500 - PASSO A PASSO
+═══════════════════════════════════════════════════════
+
+PROBLEMA: O site mostra "500 INTERNAL SERVER ERROR" na página de projetos.
+
+CAUSA: O banco de dados está vazio ou não tem a estrutura correta.
+
+═══════════════════════════════════════════════════════
+  ✅ SOLUÇÃO RÁPIDA (Escolha UMA opção):
+═══════════════════════════════════════════════════════
+
+OPÇÃO 1: Usar o arquivo .bat (MAIS FÁCIL)
+------------------------------------------
+1. Clique duas vezes no arquivo: CORRIGIR_BANCO.bat
+2. Aguarde terminar
+3. Inicie o servidor novamente
+
+
+OPÇÃO 2: Linha de comando
+--------------------------
+1. Abra o terminal no Visual Studio Code
+2. Execute:
+   py fix_database.py
+   
+   OU se não funcionar:
+   
+   python3 fix_database.py
+
+
+OPÇÃO 3: No PowerShell do VS Code
+----------------------------------
+1. No terminal do VS Code, execute:
+   
+   py fix_database.py
+
+
+OPÇÃO 4: Criar ambiente virtual primeiro
+-----------------------------------------
+1. Execute:
+   .\create_env.ps1
+   
+2. Depois:
+   py fix_database.py
+
+
+═══════════════════════════════════════════════════════
+  🎯 DEPOIS DE CORRIGIR O BANCO:
+═══════════════════════════════════════════════════════
+
+1. Inicie o servidor:
+   py app.py
+
+2. Acesse no navegador:
+   http://localhost:5000
+
+3. Clique em "Projetos Verdes"
+
+4. Você deve ver 6 PROJETOS LINDOS! 🎉
+
+
+═══════════════════════════════════════════════════════
+  ❓ SE AINDA DER ERRO:
+═══════════════════════════════════════════════════════
+
+1. Delete o arquivo "database.db" (se existir)
+2. Execute novamente: py fix_database.py
+3. Inicie o servidor: py app.py
+
+
+═══════════════════════════════════════════════════════
+  📝 COMANDOS ÚTEIS:
+═══════════════════════════════════════════════════════
+
+Verificar se Python está instalado:
+  py --version
+  
+Criar banco do zero:
+  py create_db.py
+  
+Adicionar projetos:
+  py fix_database.py
+  
+Iniciar servidor:
+  py app.py
+
+
+═══════════════════════════════════════════════════════
+
+Criado em: 27/10/2025

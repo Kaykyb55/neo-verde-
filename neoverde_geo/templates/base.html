@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NeoVerde - Geografia Interativa{% endblock %}</title>
+    
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- CSS Base -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- CSS de Tema de Cores -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-colors.css') }}">
+    
+    <!-- CSS de Elementos Dinâmicos -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dynamic-elements.css') }}">
+    
+    <!-- CSS de Animações -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+
+    <!-- CSS Cursor Personalizado Sustentável -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom-cursor.css') }}">
+    
+    <!-- CSS Específico da Página -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <nav class="main-nav">
+                <div class="logo">
+                    <a href="{{ url_for('index') }}">
+                        <span class="logo-text">NEOVERDE</span>
+                        <span class="logo-subtitle">Geografia Interativa</span>
+                    </a>
+                </div>
+                
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}#projetos" class="nav-link">Projetos</a></li>
+                    <li><a href="{{ url_for('index') }}#galeria" class="nav-link">Galeria</a></li>
+                    <li><a href="{{ url_for('index') }}#mapas" class="nav-link">Mapas</a></li>
+                    <li><a href="{{ url_for('index') }}#quiz" class="nav-link">Quiz</a></li>
+                    <li><a href="{{ url_for('index') }}#clima" class="nav-link">Clima</a></li>
+                    {% if session.get('user_id') %}
+                    <li class="user-menu">
+                        <a href="#" class="nav-link user-link">{{ session.get('user_name') }} <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#perfil">Meu Perfil</a></li>
+                            <li><a href="#favoritos">Favoritos</a></li>
+                            <li><a href="{{ url_for('logout') }}">Sair</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}" class="nav-link login-btn pulse-btn">Entrar</a></li>
+                    {% endif %}
+                </ul>
+                
+                <div class="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for message in messages %}
+            <div class="flash-message">
+                <div class="flash-content">{{ message }}</div>
+                <button class="flash-close">&times;</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">NEOVERDE</span>
+                    <span class="logo-subtitle">Geografia Interativa</span>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Navegação</h4>
+                        <ul>
+                            <li><a href="{{ url_for('index') }}">Início</a></li>
+                            <li><a href="{{ url_for('index') }}#projetos">Projetos</a></li>
+                            <li><a href="{{ url_for('index') }}#galeria">Galeria</a></li>
+                            <li><a href="{{ url_for('index') }}#mapas">Mapas</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Recursos</h4>
+                        <ul>
+                            <li><a href="{{ url_for('index') }}#quiz">Quiz Geográfico</a></li>
+                            <li><a href="{{ url_for('index') }}#clima">Dados Climáticos</a></li>
+                            <li><a href="#">Documentários</a></li>
+                            <li><a href="#">Mapas Interativos</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> NeoVerde Geografia Interativa. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Base -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- JavaScript de Elementos Dinâmicos -->
+    <script src="{{ url_for('static', filename='js/dynamic-elements.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+    
+    <!-- JavaScript Cursor Personalizado Sustentável -->
+    <script src="{{ url_for('static', filename='js/custom-cursor.js') }}"></script>
+    
+    <script>
+        // Inicializa AOS (Animate on Scroll)
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: false,
+            mirror: true,
+            offset: 120
+        });
+        
+        // Menu Mobile Toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+        
+        // Atualiza o ano atual no rodapé
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+    
+    <!-- JavaScript Específico da Página -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

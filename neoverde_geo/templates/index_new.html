@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoVerde - Sustentabilidade é Vida</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom-cursor.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">NeoVerde</h1>
+            <p class="subtitle">Sustentabilidade é Vida</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#projetos" class="nav-item" data-section="projetos">
+                <i class="fas fa-seedling"></i>
+                <span>Projetos Verdes</span>
+            </a>
+            <a href="#galeria" class="nav-item" data-section="galeria">
+                <i class="fas fa-images"></i>
+                <span>Galeria</span>
+            </a>
+            <a href="#contato" class="nav-item" data-section="contato">
+                <i class="fas fa-envelope"></i>
+                <span>Contato</span>
+            </a>
+            <a href="#sobre" class="nav-item" data-section="sobre">
+                <i class="fas fa-info-circle"></i>
+                <span>Sobre</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            {% if session.get('user_id') %}
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>{{ session.get('user_name') }}</span>
+                </div>
+                {% if session.get('is_admin') %}
+                    <a href="{{ url_for('main.admin') }}" class="btn-admin">
+                        <i class="fas fa-cog"></i> Admin
+                    </a>
+                {% endif %}
+                <a href="{{ url_for('auth.logout') }}" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar projetos, fotos...">
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-question-circle"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="welcome-container">
+                <h2 class="welcome-title">Bem-vindo, {{ session.get('user_name', 'Visitante') }}! 👋</h2>
+                <p class="welcome-subtitle">Acompanhe seus projetos e atividades de sustentabilidade</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="stat-card yellow">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="active-projects-count">0</h3>
+                        <p>Projetos Ativos</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card blue">
+                    <div class="stat-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="gallery-count">0</h3>
+                        <p>Fotos na Galeria</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card green">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="likes-count">0</h3>
+                        <p>Total de Likes</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card purple">
+                    <div class="stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="comments-count">0</h3>
+                        <p>Comentários</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card orange">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="views-count">1,234</h3>
+                        <p>Visualizações</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card teal">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="active-users-count">0</h3>
+                        <p>Usuários Ativos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards de Destaques -->
+            <div class="featured-section">
+                <h3 class="section-title">Destaques</h3>
+                <div class="featured-cards" id="featured-cards">
+                    <!-- Cards serão carregados dinamicamente via JavaScript -->
+                    <div class="loading">Carregando destaques...</div>
+                </div>
+            </div>
+            
+            <!-- Cards de Conteúdo Recente -->
+            <div class="recent-content-section">
+                <h3 class="section-title">Conteúdo Recente</h3>
+                <div class="recent-cards" id="recent-cards">
+                    <!-- Cards serão carregados dinamicamente via JavaScript -->
+                    <div class="loading">Carregando conteúdo recente...</div>
+                </div>
+            </div>
+                
+            </div>
+
+        </section>
+
+        <!-- Projetos Section -->
+        <section id="projetos" class="content-section">
+            <div class="section-header centered">
+                <h2>Projetos de Sustentabilidade</h2>
+                <p>Descubra nossos projetos para salvar o meio ambiente</p>
+            </div>
+            
+            <div id="projects-container" class="projects-grid">
+                <div class="loading">Carregando projetos...</div>
+            </div>
+        </section>
+
+        <!-- Galeria Section -->
+        <section id="galeria" class="content-section">
+            <div class="section-header centered">
+                <h2>Galeria de Fotos</h2>
+                <p>Imagens inspiradoras de natureza e sustentabilidade</p>
+            </div>
+            
+            <div id="gallery-container" class="gallery-grid">
+                <div class="loading">Carregando galeria...</div>
+            </div>
+        </section>
+
+        <!-- Contato Section -->
+        <section id="contato" class="content-section">
+            <div class="section-header centered">
+                <h2>Entre em Contato</h2>
+                <p>Envie sua mensagem para nossa equipe</p>
+            </div>
+            
+            <div class="contact-container">
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="contact-email">
+                            <i class="fas fa-envelope"></i> Seu Email
+                        </label>
+                        <input type="email" id="contact-email" name="email" required placeholder="seu@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-message">
+                            <i class="fas fa-comment"></i> Mensagem
+                        </label>
+                        <textarea id="contact-message" name="message" rows="6" required placeholder="Digite sua mensagem aqui..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                    </button>
+                </form>
+                
+                <div class="contact-info">
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Localização</h4>
+                        <p>Brasil</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email</h4>
+                        <p>contato@neoverde.com</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-globe"></i>
+                        <h4>Website</h4>
+                        <p>www.neoverde.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Section -->
+        <section id="sobre" class="content-section">
+            <div class="section-header centered">
+                <h2>Sobre o NeoVerde</h2>
+                <p>Conheça nossa missão de transformar o mundo através da sustentabilidade</p>
+            </div>
+            
+            <div class="about-content centered-content">
+                <div class="about-text">
+                    <h3>🌱 Sustentabilidade é Vida</h3>
+                    <p>Somos um programa dedicado a salvar o meio ambiente através de ações sustentáveis e educação ambiental. Nossa missão é criar um futuro mais verde e consciente para as próximas gerações.</p>
+                    
+                    <h3>🌍 Nossa Missão</h3>
+                    <p>Promover a sustentabilidade através de projetos inovadores, educação ambiental e ações práticas que fazem a diferença. Acreditamos que cada pequena ação conta na construção de um planeta mais saudável.</p>
+                    
+                    <h3>♻️ O Que Fazemos</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00c853; margin-right: 10px;"></i> Desenvolvimento de projetos sustentáveis</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00c853; margin-right: 10px;"></i> Educação ambiental para comunidades</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00c853; margin-right: 10px;"></i> Preservação de áreas naturais</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00c853; margin-right: 10px;"></i> Promoção de energia renovável</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00c853; margin-right: 10px;"></i> Incentivo à reciclagem e reuso</li>
+                        <li style="margin-bottom: 10px;"><i class="fas fa-check" style="color: #00c853; margin-right: 10px;"></i> Combate às mudanças climáticas</li>
+                    </ul>
+                    
+                    <h3>💚 Junte-se a Nós</h3>
+                    <p>Faça parte dessa transformação! Cada ação conta e juntos podemos fazer a diferença. Explore nossos projetos, participe das ações e ajude a construir um mundo mais sustentável.</p>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para Galeria -->
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image" id="modal-media-container">
+                    <!-- Conteúdo será inserido dinamicamente (img ou video) -->
+                </div>
+                <div class="modal-info">
+                    <h3 id="modal-title"></h3>
+                    <p id="modal-description"></p>
+                    
+                    <div class="modal-actions">
+                        <button id="like-btn" class="action-btn">
+                            <i class="far fa-heart"></i>
+                            <span id="likes-count-modal">0</span>
+                        </button>
+                    </div>
+                    
+                    <div class="comments-section">
+                        <h4>Comentários</h4>
+                        <div id="comments-list"></div>
+                        
+                        <form id="comment-form" class="comment-form">
+                            <input type="text" id="comment-name" placeholder="Seu nome" required>
+                            <textarea id="comment-text" placeholder="Seu comentário..." required></textarea>
+                            <button type="submit">Comentar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/custom-cursor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modern-main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+/* Estilos para a página de login */
+
+.login-section {
+    min-height: calc(100vh - 80px);
+    padding: 60px 0;
+    background: var(--gradient-login);
+}
+
+.login-container {
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-depth-3);
+    padding: 40px;
+    max-width: 500px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out;
+    width: 100%;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.login-header p {
+    color: var(--color-neutral-600);
+    font-size: 1rem;
+}
+
+.login-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-neutral-600);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: var(--color-primary);
+}
+
+.tab-btn.active {
+    color: var(--color-primary);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 3px 3px 0 0;
+    animation: slideInFromLeft 0.3s ease-out;
+}
+
+.tab-content {
+    transition: all 0.3s ease;
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--color-neutral-700);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--color-neutral-300);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    color: var(--color-neutral-800);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(50, 100, 255, 0.2);
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.2);
+    outline: none;
+}
+
+.remember-me, .terms {
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input, .terms input {
+    margin-right: 8px;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.forgot-password a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.social-login {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.social-login p {
+    color: var(--color-neutral-600);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: var(--color-neutral-300);
+}
+
+.social-login p::before {
+    left: 0;
+}
+
+.social-login p::after {
+    right: 0;
+}
+
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: 8px;
+    background: var(--color-white);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social-btn i {
+    margin-right: 8px;
+}
+
+.social-btn.google:hover {
+    background: #f2f2f2;
+    border-color: #d9d9d9;
+}
+
+.social-btn.facebook:hover {
+    background: #3b5998;
+    border-color: #3b5998;
+    color: white;
+}
+
+.contact-option {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.contact-option p {
+    color: var(--color-neutral-600);
+    font-size: 0.9rem;
+}
+
+.gmail-contact {
+    color: #DB4437;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.gmail-contact i {
+    margin-right: 5px;
+}
+
+.gmail-contact:hover {
+    text-decoration: underline;
+    color: #C53929;
+}
+
+/* Decoração lateral */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.login-decoration {
+    flex: 1;
+    padding: 20px;
+    color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeInRight 0.8s ease-out;
+}
+
+.decoration-image {
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.decoration-image img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
+}
+
+.decoration-text {
+    text-align: center;
+}
+
+.decoration-text h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.decoration-text p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-depth-1);
+    animation: pulse 2s infinite;
+    animation-delay: calc(var(--i, 0) * 0.5s);
+}
+
+.badge:nth-child(1) {
+    --i: 0;
+}
+
+.badge:nth-child(2) {
+    --i: 1;
+}
+
+.badge:nth-child(3) {
+    --i: 2;
+}
+
+/* Animações */
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .login-container {
+        margin-right: 0;
+        margin-bottom: 40px;
+        width: 100%;
+    }
+    
+    .login-decoration {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-container {
+        padding: 30px 20px;
+    }
+    
+    .social-buttons {
+        flex-direction: column;
+    }
+}

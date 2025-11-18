@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - NeoVerde Sustentabilidade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern-admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="logo">Admin Panel</h1>
+            <p class="subtitle">Sustentabilidade é Vida</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#dashboard-admin" class="nav-item active" data-section="dashboard-admin">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#projetos-admin" class="nav-item" data-section="projetos-admin">
+                <i class="fas fa-seedling"></i>
+                <span>Projetos Sustentáveis</span>
+            </a>
+            <a href="#galeria-admin" class="nav-item" data-section="galeria-admin">
+                <i class="fas fa-images"></i>
+                <span>Galeria</span>
+            </a>
+            <a href="#mensagens-admin" class="nav-item" data-section="mensagens-admin">
+                <i class="fas fa-envelope"></i>
+                <span>Mensagens</span>
+                <span class="badge" id="unread-count">0</span>
+            </a>
+            <a href="#upload-admin" class="nav-item" data-section="upload-admin">
+                <i class="fas fa-upload"></i>
+                <span>Upload</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <i class="fas fa-user-shield"></i>
+                <span>{{ session.get('user_name') }}</span>
+            </div>
+            <a href="{{ url_for('main.index') }}" class="btn-admin">
+                <i class="fas fa-home"></i> Voltar ao Site
+            </a>
+            <a href="{{ url_for('auth.logout') }}" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="top-header">
+            <h2 id="page-title">Dashboard</h2>
+            <div class="header-actions">
+                <button class="icon-btn" id="refresh-btn">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Admin -->
+        <section id="dashboard-admin" class="content-section active">
+            <div class="dashboard-grid">
+                <div class="stat-card yellow">
+                    <div class="stat-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-projects-count">0</h3>
+                        <p>Total de Projetos</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card blue">
+                    <div class="stat-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-media-count">0</h3>
+                        <p>Mídias na Galeria</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card pink">
+                    <div class="stat-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-messages-count">0</h3>
+                        <p>Mensagens Recebidas</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card green">
+                    <div class="stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-comments-count">0</h3>
+                        <p>Total de Comentários</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card purple">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-likes-count">0</h3>
+                        <p>Total de Curtidas</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card orange">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-users-count">0</h3>
+                        <p>Usuários Registrados</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card teal">
+                    <div class="stat-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-storage-size">0 MB</h3>
+                        <p>Armazenamento Usado</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card red">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-unread-messages">0</h3>
+                        <p>Mensagens Não Lidas</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card indigo">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-recent-uploads">0</h3>
+                        <p>Uploads Hoje</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card cyan">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-avg-engagement">0%</h3>
+                        <p>Engajamento Médio</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card lime">
+                    <div class="stat-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-videos-count">0</h3>
+                        <p>Vídeos</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card amber">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="admin-featured-count">0</h3>
+                        <p>Conteúdo em Destaque</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-section">
+                <h3>Atividades Recentes</h3>
+                <div id="recent-activities" class="activity-list">
+                    <div class="loading">Carregando...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gerenciar Projetos -->
+        <section id="projetos-admin" class="content-section">
+            <div class="section-actions">
+                <button class="btn-primary" id="add-project-btn">
+                    <i class="fas fa-plus"></i> Novo Projeto
+                </button>
+            </div>
+            
+            <div id="projects-admin-list" class="admin-grid">
+                <div class="loading">Carregando projetos...</div>
+            </div>
+        </section>
+
+        <!-- Galeria Admin -->
+        <section id="galeria-admin" class="content-section">
+            <div class="section-actions">
+                <button class="btn-primary" id="add-media-btn">
+                    <i class="fas fa-plus"></i> Nova Mídia
+                </button>
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="all">Todas</button>
+                    <button class="tab-btn" data-filter="image">Imagens</button>
+                    <button class="tab-btn" data-filter="video">Vídeos</button>
+                </div>
+            </div>
+            
+            <div id="gallery-admin-list" class="admin-grid">
+                <div class="loading">Carregando galeria...</div>
+            </div>
+        </section>
+
+        <!-- Mensagens -->
+        <section id="mensagens-admin" class="content-section">
+            <div class="filter-tabs">
+                <button class="tab-btn active" data-filter="all">Todas</button>
+                <button class="tab-btn" data-filter="unread">Não Lidas</button>
+                <button class="tab-btn" data-filter="read">Lidas</button>
+            </div>
+            
+            <div id="messages-list" class="messages-container">
+                <div class="loading">Carregando mensagens...</div>
+            </div>
+        </section>
+
+        <!-- Upload -->
+        <section id="upload-admin" class="content-section">
+            <div class="upload-container-modern">
+                <div class="upload-dropzone" id="dropzone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Arraste arquivos aqui</h3>
+                    <p>ou clique para selecionar</p>
+                    <input type="file" id="file-input" multiple accept="image/*,video/*" hidden>
+                </div>
+                
+                <div class="upload-form">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select id="upload-category">
+                            <option value="sustentabilidade">Sustentabilidade</option>
+                            <option value="reciclagem">Reciclagem</option>
+                            <option value="energia-renovavel">Energia Renovável</option>
+                            <option value="natureza">Natureza</option>
+                            <option value="preservacao">Preservação Ambiental</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <textarea id="upload-description" rows="3" placeholder="Descrição da mídia..."></textarea>
+                    </div>
+                    
+                    <button class="btn-submit" id="upload-btn" disabled>
+                        <i class="fas fa-upload"></i> Fazer Upload
+                    </button>
+                </div>
+                
+                <div id="upload-preview" class="upload-preview"></div>
+                <div id="upload-progress" class="upload-progress" style="display: none;">
+                    <div class="progress-bar"></div>
+                    <p class="progress-text">0%</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Adicionar/Editar Projeto -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content modal-small">
+            <span class="modal-close">&times;</span>
+            <h2 id="project-modal-title">Novo Projeto</h2>
+            
+            <form id="project-form">
+                <input type="hidden" id="project-id">
+                
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="project-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <select id="project-category">
+                        <option value="sustentabilidade">Sustentabilidade</option>
+                        <option value="reciclagem">Reciclagem</option>
+                        <option value="energia-renovavel">Energia Renovável</option>
+                        <option value="preservacao">Preservação Ambiental</option>
+                        <option value="educacao">Educação Ambiental</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Imagem do Projeto</label>
+                    <div class="file-upload-container">
+                        <input type="file" id="project-image-file" accept="image/*">
+                        <div class="file-upload-preview" id="project-image-preview"></div>
+                    </div>
+                    <p class="form-hint">Ou informe uma URL (opcional)</p>
+                    <input type="url" id="project-image" placeholder="URL da imagem (opcional)">
+                </div>
+                
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="project-description" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Salvar Projeto
+                    </button>
+                    <button type="button" class="btn-secondary modal-close-btn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar/Editar Mídia -->
+    <div id="media-modal" class="modal">
+        <div class="modal-content modal-small">
+            <span class="modal-close">&times;</span>
+            <h2 id="media-modal-title">Nova Mídia</h2>
+            
+            <form id="media-form">
+                <input type="hidden" id="media-id">
+                
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="media-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="media-description" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Categoria</label>
+                    <select id="media-category">
+                        <option value="sustentabilidade">Sustentabilidade</option>
+                        <option value="reciclagem">Reciclagem</option>
+                        <option value="energia-renovavel">Energia Renovável</option>
+                        <option value="natureza">Natureza</option>
+                        <option value="preservacao">Preservação Ambiental</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Arquivo</label>
+                    <div class="file-upload-container">
+                        <input type="file" id="media-file" accept="image/*,video/*">
+                        <button type="button" id="open-camera-btn" class="btn-secondary" style="margin-top: 10px;">
+                            <i class="fas fa-camera"></i> Usar Câmera
+                        </button>
+                        <div id="media-preview" class="media-preview"></div>
+                        <div id="camera-container" style="display:none; margin-top:10px;">
+                            <video id="camera-video" autoplay playsinline style="width:100%; max-width:400px; border-radius:10px;"></video>
+                            <br>
+                            <button type="button" id="capture-photo-btn" class="btn-primary" style="margin-top:10px;">
+                                <i class="fas fa-camera"></i> Tirar Foto
+                            </button>
+                            <button type="button" id="close-camera-btn" class="btn-secondary" style="margin-top:10px;">
+                                <i class="fas fa-times"></i> Fechar Câmera
+                            </button>
+                            <canvas id="photo-canvas" style="display:none;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Salvar</button>
+                    <button type="button" class="btn-secondary modal-close-btn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin-fix.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NeoVerde Sustentabilidade</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modern-style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login-modern.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-body">
+    <div class="login-wrapper">
+        <!-- Left Side - Login Form -->
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h1 class="logo">NeoVerde</h1>
+                </div>
+                <p class="welcome-text">Sustentabilidade é Vida</p>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            <i class="fas fa-info-circle"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                </button>
+                <button class="auth-tab" data-tab="register">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Cadastro</span>
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-content active" id="login-content">
+                <form action="{{ url_for('auth.login_post') }}" method="POST" class="auth-form" id="login-form">
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            placeholder="seu.email@exemplo.com"
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i>
+                            Senha
+                        </label>
+                        <div class="password-input">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                required 
+                                placeholder="••••••••"
+                                autocomplete="current-password"
+                            >
+                            <button type="button" class="toggle-password" data-target="password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span class="checkmark"></span>
+                            Lembrar de mim
+                        </label>
+                        <a href="{{ url_for('auth.forgot_password') }}" class="forgot-link">
+                            Esqueceu a senha?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Entrar
+                    </button>
+                </form>
+
+                <div class="social-login">
+                    <div class="divider">
+                        <span>ou entre com</span>
+                    </div>
+                    <div class="social-buttons">
+                        <a href="{{ url_for('auth.login_google') }}" class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </a>
+                        <button class="social-btn facebook" type="button">
+                            <i class="fab fa-facebook-f"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-content" id="register-content">
+                <form action="{{ url_for('auth.register_post') }}" method="POST" class="auth-form" id="register-form">
+                    <div class="form-group">
+                        <label for="reg-name">
+                            <i class="fas fa-user"></i>
+                            Nome Completo
+                        </label>
+                        <input 
+                            type="text" 
+                            id="reg-name" 
+                            name="name" 
+                            required 
+                            placeholder="João Silva"
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-email">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+                        <input 
+                            type="email" 
+                            id="reg-email" 
+                            name="email" 
+                            required 
+                            placeholder="seu.email@exemplo.com"
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-password">
+                            <i class="fas fa-lock"></i>
+                            Senha
+                        </label>
+                        <div class="password-input">
+                            <input 
+                                type="password" 
+                                id="reg-password" 
+                                name="password" 
+                                required 
+                                placeholder="••••••••"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="toggle-password" data-target="reg-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <small class="password-hint">
+                            <i class="fas fa-info-circle"></i>
+                            Mínimo de 6 caracteres
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-confirm-password">
+                            <i class="fas fa-lock"></i>
+                            Confirmar Senha
+                        </label>
+                        <div class="password-input">
+                            <input 
+                                type="password" 
+                                id="reg-confirm-password" 
+                                name="confirm_password" 
+                                required 
+                                placeholder="••••••••"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="toggle-password" data-target="reg-confirm-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <label class="checkbox-label terms-label">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span class="checkmark"></span>
+                        Concordo com os <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>
+                    </label>
+
+                    <button type="submit" class="btn-submit btn-register">
+                        <i class="fas fa-user-plus"></i>
+                        Criar Conta
+                    </button>
+                </form>
+
+                <div class="social-login">
+                    <div class="divider">
+                        <span>ou cadastre-se com</span>
+                    </div>
+                    <div class="social-buttons">
+                        <a href="{{ url_for('auth.login_google') }}" class="social-btn google">
+                            <i class="fab fa-google"></i>
+                            Google
+                        </a>
+                        <button class="social-btn facebook" type="button">
+                            <i class="fab fa-facebook-f"></i>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="help-section">
+                <p>
+                    <i class="fas fa-question-circle"></i>
+                    Precisa de ajuda? 
+                    <a href="mailto:contato@neoverde.com">Entre em contato</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Side - Decorative -->
+        <div class="login-hero">
+            <div class="hero-content">
+                <div class="hero-illustration">
+                    <div class="floating-card card-1">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Projetos Sustentáveis</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span>Preservação Ambiental</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="fas fa-mountain"></i>
+                        <span>Energia Renovável</span>
+                    </div>
+                    <div class="floating-card card-4">
+                        <i class="fas fa-city"></i>
+                        <span>Reciclagem e Reuso</span>
+                    </div>
+                    <div class="hero-center-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                </div>
+                <h2>Juntos pela Sustentabilidade</h2>
+                <p>Somos um programa de sustentabilidade dedicado a salvar o meio ambiente. Acesse conteúdos exclusivos sobre preservação ambiental, projetos verdes e ações sustentáveis.</p>
+                <div class="feature-badges">
+                    <div class="feature-badge">
+                        <i class="fas fa-check"></i>
+                        <span>100+ Projetos Verdes</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-check"></i>
+                        <span>Ações Sustentáveis</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-check"></i>
+                        <span>Educação Ambiental</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/login-modern.js') }}"></script>
+</body>
+</html>

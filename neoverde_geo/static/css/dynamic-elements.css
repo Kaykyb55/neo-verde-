@@ -1,0 +1,264 @@
+/* Estilos para elementos dinâmicos */
+
+/* Botão de Login com Gradiente */
+.login-btn {
+    background: var(--gradient-primary);
+    color: white !important;
+    padding: 8px 20px !important;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-depth-2);
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-depth-3);
+}
+
+/* Botão com efeito de pulso */
+.pulse-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.pulse-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+.pulse-btn:hover::after {
+    animation: ripple 1.5s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(30, 30);
+        opacity: 0;
+    }
+}
+
+/* Cards com profundidade */
+.depth-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-depth-2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.depth-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-depth-3);
+}
+
+/* Seções com gradiente */
+.gradient-section {
+    background: var(--gradient-primary);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.gradient-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+/* Texto com destaque */
+.highlight-text {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    font-weight: 700;
+}
+
+/* Ícones flutuantes */
+.float-icon {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Badges brilhantes */
+.glowing-badge {
+    background: var(--gradient-secondary);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.5);
+    }
+    to {
+        box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.8);
+    }
+}
+
+/* Menu dropdown de usuário */
+.user-menu {
+    position: relative;
+}
+
+.user-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-depth-3);
+    min-width: 180px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.user-menu:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    display: block;
+    width: 100%;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 8px 15px;
+    color: var(--color-neutral-800);
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+    background: var(--color-neutral-100);
+    color: var(--color-primary);
+}
+
+/* Mensagens Flash */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    max-width: 350px;
+    width: 100%;
+}
+
+.flash-message {
+    background: white;
+    border-left: 4px solid var(--color-primary);
+    border-radius: 4px;
+    box-shadow: var(--shadow-depth-2);
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideInRight 0.5s ease-out forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.flash-content {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.flash-close {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--color-neutral-600);
+    transition: color 0.2s ease;
+}
+
+.flash-close:hover {
+    color: var(--color-neutral-900);
+}
+
+/* Script para fechar mensagens flash */
+document.addEventListener('DOMContentLoaded', function() {
+    const closeButtons = document.querySelectorAll('.flash-close');
+    
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const flashMessage = this.parentElement;
+            flashMessage.style.opacity = '0';
+            flashMessage.style.transform = 'translateX(100%)';
+            
+            setTimeout(() => {
+                flashMessage.remove();
+            }, 300);
+        });
+    });
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        document.querySelectorAll('.flash-message').forEach(message => {
+            message.style.opacity = '0';
+            message.style.transform = 'translateX(100%)';
+            
+            setTimeout(() => {
+                message.remove();
+            }, 300);
+        });
+    }, 5000);
+});

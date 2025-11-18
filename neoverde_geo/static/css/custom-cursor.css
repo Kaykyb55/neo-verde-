@@ -1,0 +1,41 @@
+/**
+ * CURSOR SIMPLES - APENAS FOLHA
+ * Cursor minimalista em formato de folha
+ */
+
+/* Esconder cursor padrão */
+* {
+    cursor: none !important;
+}
+
+/* Cursor - Apenas a Folha */
+.custom-cursor {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    transform: translate(-50%, -50%);
+}
+
+/* Ícone da Folha - Simples */
+.custom-cursor::before {
+    content: "🍃";
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Responsivo - desabilitar em mobile */
+@media (max-width: 768px) {
+    .custom-cursor {
+        display: none !important;
+    }
+    
+    * {
+        cursor: auto !important;
+    }
+}
